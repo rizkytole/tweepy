@@ -1,0 +1,21 @@
+import tweepy
+import csv
+
+access_token="1465885708304928769-PUV9ncuh3OCelX8ph8iEaqDnp69CCa"
+access_token_secret="UCHnEmQiNQFWjU6bzkMoze4O6mTFRyDyISs5C8eYhsAI4"
+consumer_key="AAAAAAAAAAAAAAAAAAAAAHyMWQEAAAAAIFpd1ZvB%2FWit%2F4a1UTpL60juNOQ%3D8NrW5Cn4wdcdlqWroo0oVuzVYUnMVcPzzauSRXi1381LnU52d6"
+consumer_key_secret="AAAAAAAAAAAAAAAAAAAAAHyMWQEAAAAAIFpd1ZvB%2FWit%2F4a1UTpL60juNOQ%3D8NrW5Cn4wdcdlqWroo0oVuzVYUnMVcPzzauSRXi1381LnU52d6"
+
+auth = tweepy.OAutHandler(consumer_key,consumer_key_secret)
+api = tweepy.API(auth)
+
+csvfile = open('twitter.csv','w',newline='',encoding='utf-8')
+
+csvWriter = csv.writer(csvFile)
+for tweets in api.search_tweet(q="jokowi",lang="id",count=100):
+    text = tweets.text
+    user = tweets.user.name
+    created = tweets.created_at
+    csvWriter.writerow([created,text.encode('utf-8'), user])
+
+csvFile.close()
